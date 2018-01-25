@@ -4,7 +4,14 @@
 const localModel = function () {
 
   const addSingleBookmarkToModel = function (bookmark) {
-    this.bookmarks.push(bookmark);    
+    this.bookmarks.push({
+      id:bookmark.id,
+      title:bookmark.title,
+      url:bookmark.url,
+      desc:bookmark.desc,
+      rating:bookmark.rating,
+      isPreviewing:false
+    });   
   };
 
   const pullAllBookmarksIntoModel = function (bookmarksArrayFromServer) {
