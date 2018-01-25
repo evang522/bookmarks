@@ -21,13 +21,22 @@ const display = function () {
       api.createNewBookmarkOnServer(title,desc,rating,url, (response) => {
         localModel.addSingleBookmarkToModel(response);
         pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
-
       });
 
     });
 
   };
 
+
+  const listenForPreviewBookmark = () => {
+
+    $('.bookmark-container').on('click','.bookmark', (event) => {
+      let clickedItemId = $(event.target).closest('li').attr('data-item-id');
+      localModel.isPreviewing = true;
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,clickedItemId));
+    });
+
+  };
 
   const initiateApp = () => {
     //event listeners
@@ -36,16 +45,29 @@ const display = function () {
       pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
     });
     
-
+    listenForPreviewBookmark();
     listenForNewBookmarkSubmit();
   };
 
 
-  const generateHTMLStringFromLocalBookmarks = (localBookmarks) => {
+  const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
     let domString = '';
+    if (localModel.isPreviewing) {
+      let pvwBookmark = localModel.bookmarks.find((bookmark) =>{
+        return bookmark.id === id;
+      });
+      domString += `
+      <section role='region' class='static-view-item-container'>
+      <h2 class='zoom-bookmark-title'>${pvwBookmark.title}</h2>
+      <p class='zoom-bookmark-description'>${pvwBookmark.desc}</p>
+      <p class='zoom-bookmark-rating'>Rating:${pvwBookmark.rating}</p>
+      <p class='zoom-bookmark-url'>${pvwBookmark.url}</p>
+      <button class='bookmark-item-delete'>Delete Item</button>
+    </section>`;
+    }
     localBookmarks.forEach((item) => {
       domString += `
-      <li class='bookmark'>
+      <li class='bookmark' data-item-id='${item.id}'>
       <h3 class='bookmark-title center'>${item.title}</h3>
       <p class='center'>Rating:${item.rating}</p>
       </li>`;

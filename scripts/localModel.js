@@ -34,7 +34,7 @@ const localModel = function () {
   return {
     bookmarks,
     addSingleBookmarkToModel,
-    previewingBookmark:false,
+    isPreviewing:false,
     filterRating:0,
     pullAllBookmarksIntoModel
     

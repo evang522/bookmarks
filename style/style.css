@@ -95,3 +95,15 @@ body {
 .bookmark-title {
   padding-top:10px;
 }
+
+
+.static-view-item-container {
+  position:fixed;
+  background-color:#404753;
+  height:60%;
+  width:30%;
+  border-radius:10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 5px 5px 5px #555656;
+}
