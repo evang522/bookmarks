@@ -1,13 +1,13 @@
 'use strict';
 
-
+/* display*/
 const display = function () {
 
 
-  
+
 
   const initiateApp = () => {
-    //event listen
+    //event listeners
   };
 
 
