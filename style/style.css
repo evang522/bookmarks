@@ -1,0 +1,97 @@
+/* GLOBAL RESETS */
+
+* {
+  box-sizing:border-box;
+  padding:0;
+  margin:0;
+}
+
+
+/* BODY STYLES */
+
+body {
+  background-color:black;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+
+/* GLOBAL SPACING CSS */
+
+.small-space-above {
+  margin-top:1em;
+}
+
+.moderate-space-above {
+  margin-top:3em;
+}
+
+.large-space-above {
+  margin-top:6em;
+}
+
+.small-space-below {
+  margin-bottom:1em;
+}
+
+.moderate-space-below {
+  margin-bottom:3em;
+}
+
+.large-space-below {
+  margin-bottom:6em;
+}
+
+/* GLOBAL CENTER CSS */
+
+.center {
+  text-align:center;
+}
+
+.centerBlock {
+  display:block;
+  margin:0 auto;
+}
+
+
+
+/* HEADER STYLING */
+
+.banner-title {
+  font-size:3em;
+  color:#2c9904;
+}
+
+/* BOOKMARK STYLING */
+
+.bookmark-container {
+  width:80%;
+  background-color:#2c323d;
+  height:30em;
+  margin:0 auto;
+  border-radius:10px;
+  overflow:scroll;
+  overflow-x:hidden;  
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  flex-grow:4px;
+  
+}
+
+
+.bookmark {
+  margin:1em;
+  list-style:none;
+  width:19%;
+  height:4em;
+  background-color:#2c9904;
+  border-radius:10px;
+  color:white;
+}
+
+
+
+.bookmark-title {
+  padding-top:10px;
+}
