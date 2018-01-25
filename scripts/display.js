@@ -31,6 +31,12 @@ const display = function () {
 
   const initiateApp = () => {
     //event listeners
+    api.fetchFromServer((data) => {
+      localModel.pullAllBookmarksIntoModel(data);
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
+    });
+    
+
     listenForNewBookmarkSubmit();
   };
 
