@@ -35,7 +35,15 @@ const display = function () {
       localModel.isPreviewing = true;
       pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,clickedItemId));
     });
+  };
 
+  const listenForClosePreview = () => {
+    console.log('listening for close');
+    $('.bookmark-container').on('click','.bookmark-preview-close',(event) => {
+      console.log('closing');
+      localModel.isPreviewing = false;
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
+    });
   };
 
   const initiateApp = () => {
@@ -44,7 +52,7 @@ const display = function () {
       localModel.pullAllBookmarksIntoModel(data);
       pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
     });
-    
+    listenForClosePreview();
     listenForPreviewBookmark();
     listenForNewBookmarkSubmit();
   };
@@ -57,12 +65,13 @@ const display = function () {
         return bookmark.id === id;
       });
       domString += `
-      <section role='region' class='static-view-item-container'>
+      <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}>
       <h2 class='zoom-bookmark-title'>${pvwBookmark.title}</h2>
       <p class='zoom-bookmark-description'>${pvwBookmark.desc}</p>
       <p class='zoom-bookmark-rating'>Rating:${pvwBookmark.rating}</p>
       <p class='zoom-bookmark-url'>${pvwBookmark.url}</p>
       <button class='bookmark-item-delete'>Delete Item</button>
+      <button class='bookmark-preview-close'>Close Preview</button>
     </section>`;
     }
     localBookmarks.forEach((item) => {
