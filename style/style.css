@@ -66,7 +66,7 @@ body {
 .bookmark-container {
   width:80%;
   background-color:#2c323d;
-  height:30em;
+  height:29em;
   margin:0 auto;
   border-radius:10px;
   overflow:scroll;
@@ -88,6 +88,7 @@ body {
   background-color:#2c9904;
   border-radius:10px;
   color:white;
+  cursor:pointer;
 }
 
 
@@ -105,11 +106,97 @@ body {
   border-radius:10px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 5px 5px 5px #555656;
+  box-shadow: 5px 5px 5px black;
   padding:1em;
+  overflow:hidden;
+  top:10em;
+}
+
+.static-view-item-container button {
+  height:3em;
+  width:7em;
+  border-radius:10px;
+  border:none;
+  background-color:black;
+  color:white;
+  font-size:1.1em;
+  cursor:pointer;
+}
+
+.static-view-item-container form {
+  
+  text-align:center;
 }
 
 
 .bookmark-search-label {
   color:white;
+}
+
+.add-bookmark-container {
+  background-color:#2c9904;
+  padding:1em;
+  width:80%;
+  margin:0 auto;
+  border-radius:10px;
+}
+
+.add-bookmark-container input {
+  padding:6px;
+  font-size:1.1em;
+  border-radius:2px;
+  border:none;
+}
+
+.add-bookmark-button {
+  width:8em;
+  height:3em;
+  background-color:black;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:1.1em;
+  margin-right:10px;
+}
+
+.static-button-div {
+  display:flex;
+  margin-top:1em;
+  justify-content:center;
+
+}
+
+.static-button-div button{
+  margin:10px;
+}
+
+.wider-button {
+  width:22em !important;
+  background-color:#2c9904 !important;
+  cursor:pointer;
+}
+
+.zoom-bookmark-title {
+  font-size:2em !important;
+}
+
+
+.search-filter-container {
+  display:flex;
+  justify-content:center;
+  width:80%;
+  margin:0 auto;
+  height:2em;
+}
+
+
+.rating-filter-container {
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+
+.bookmark-rating-filter-container {
+  display:flex;
 }

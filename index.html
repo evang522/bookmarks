@@ -20,15 +20,12 @@
           <input type='number' class='add-bookmark-input add-bookmark-rating' name='rating' placeholder='rating'>
         </form>
       </section>
-      <section role='region'>
+      <section role='region' class='search-filter-container'>
         <div class='rating-filter-container'>
           <form class='bookmark-search-form'>
             <label for='bookmark-search-input' class='bookmark-search-label'>Search for an Item:</label>
             <input id = 'bookmark-search-input' class='bookmark-search-input'>
           </form>
-          <div class='reset-all'>
-            <button class='reset-all-button'>Show All</button>
-          </div>
           <div class='bookmark-rating-filter-container'>
             <p class='bookmark-search-label'>Filter bookmarks by rating</p>
             <select class='bookmark-rating-filter-select'>
@@ -38,11 +35,16 @@
               <option value='4'>4</option>
               <option value='5'>5</option>
             </select>
+            
           </div>
-        </div>
-        <div class='bookmark-container'>
+          <br>
+          <div class='reset-all'>
+              <button class='reset-all-button'>Show All</button>
+            </div>
         </div>
       </section>
+        <div class='bookmark-container'>
+        </div>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/scripts/api.js"></script>

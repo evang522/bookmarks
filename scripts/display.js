@@ -188,13 +188,17 @@ const display = function () {
       });
       domString += `
       <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}'>
-      <h2 class='zoom-bookmark-title'>${pvwBookmark.title}</h2>
-      <p class='zoom-bookmark-description'>${pvwBookmark.desc}</p>
-      <p class='zoom-bookmark-rating'>Rating:${pvwBookmark.rating}</p>
-      <p class='zoom-bookmark-url'>${pvwBookmark.url}</p>
-      <a class='bookmark' href='${pvwBookmark.url}' target='_blank'>Click here to launch site!</a>
-      <button class='delete-bookmark-button'>Delete Item</button>
-      <button class='bookmark-preview-close'>Close Preview</button>
+      <h2 class='zoom-bookmark-title center small-space-below'>${pvwBookmark.title}</h2>
+      <p class='zoom-bookmark-description center'>${pvwBookmark.desc}</p>
+      <p class='zoom-bookmark-rating center'>Rating:${pvwBookmark.rating}</p>
+      <p class='zoom-bookmark-url small-space-above center small-space-below'>URL: ${pvwBookmark.url}</p>
+      <form action='${pvwBookmark.url}' target='_blank'>
+        <button class='wider-button'>Click here to launch site!</button>
+      </form>
+      <div class='static-button-div'>
+        <button class='delete-bookmark-button'>Delete Item</button>
+        <button class='bookmark-preview-close'>Close Preview</button>
+      </div>
     </section>`;
     }
 
