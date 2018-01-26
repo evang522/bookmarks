@@ -210,14 +210,40 @@ const display = function () {
           localBookmarkToUpdate.desc = newDescription;
           localBookmarkToUpdate.isEditingDesc = false;
           pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
-
         });
       }
     });
   };
 
+  const listenforRatingEdit = () => {
+    $('.bookmark-container').on('change','.set-new-rating-select',(event) => {
+      let newRating = $('.set-new-rating-select').val();
+      let itemId = $(event.target).closest('section').attr('data-item-id');
+      let updateObj = {
+        rating:newRating
+      };
+      api.updateItemOnServer(itemId,updateObj, () => {
+        let localRating = localModel.bookmarks.find(bookmark => bookmark.id === itemId);
+        localRating.rating = newRating;
+        pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
+      });
+    });
+  };
 
   // DOM MANIPULATION-------------------------------------------------------------------------------->
+
+
+
+  const generateStars = (rating) => {
+    let star = '<p>&#9734;</p>';
+    let starRatingString = '<div class=\'starCont\'>';
+    for (let i=1;i<=rating;i++) {
+      starRatingString+= star;
+    }
+    starRatingString += '</div>';
+    return starRatingString;
+  };
+
 
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
 
@@ -235,7 +261,7 @@ const display = function () {
         domString += `
         <li class='bookmark' data-item-id='${item.id}'>
         <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${item.rating}</p>
+        <p class='center'>Rating:${display.generateStars(item.rating)}</p>
         </li>`;
       });
       console.log('ran rating filter');
@@ -250,7 +276,7 @@ const display = function () {
         domString += `
         <li class='bookmark' data-item-id='${item.id}'>
         <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${item.rating}</p>
+        <p class='center'>Rating:${display.generateStars(item.rating)}</p>
         </li>`;
       });
       // console.log('ran searchTerm Condition');
@@ -262,7 +288,7 @@ const display = function () {
         domString += `
       <li class='bookmark' data-item-id='${item.id}'>
       <h3 class='bookmark-title center'>${item.title}</h3>
-      <p class='center'>Rating:${item.rating}</p>
+      <p class='center'>${display.generateStars(item.rating)}</p>
       </li>`;
       });
       // console.log('ran conditionless');
@@ -283,7 +309,17 @@ const display = function () {
       <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}'>
       ${pvwBookmark.isEditingTitle ? editingTitleHTML : notEditingTitleHTML}
       ${pvwBookmark.isEditingDesc ? editingDescHTML : notEditingDescHTML}
-      <p class='zoom-bookmark-rating center'>Rating:${pvwBookmark.rating}</p>
+      <div class='zoom-rating-cont'>
+      <p>Rating:</p>
+      <select class='set-new-rating-select'>
+        <option selected disabled value='${pvwBookmark.rating}'> Current: ${pvwBookmark.rating}</option>
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+      </select>
+      </div>
       <p class='zoom-bookmark-url small-space-above center small-space-below'>URL: ${pvwBookmark.url}</p>
       <form action='${pvwBookmark.url}' target='_blank'>
         <button class='wider-button'>Click here to launch site!</button>
@@ -323,6 +359,7 @@ const display = function () {
     listenForConfirmTitleEdit();
     listenForConfirmDescEdit();
     listenForInitiateDescEdit();
+    listenforRatingEdit();
   };
 
 
@@ -332,7 +369,8 @@ const display = function () {
     generateHTMLStringFromLocalBookmarks,
     pushToDom,
     listenForNewBookmarkSubmit,
-    validate
+    validate,
+    generateStars
   };
 
 }();

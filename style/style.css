@@ -85,7 +85,7 @@ body {
   margin:1em;
   list-style:none;
   width:12em;
-  height:4em;
+  height:4.5em;
   background-color:#426fb7;
   border-radius:10px;
   color:white;
@@ -248,4 +248,24 @@ body {
   min-height:4em;
   font-family: 'Roboto Condensed', sans-serif;
   font-size:1.1em;
+}
+
+.starCont {
+  display:flex;
+  flex-direction:row;
+  margin:0 auto;
+ justify-content:center;
+}
+
+.zoom-rating-cont {
+  width:60%;
+  justify-content:center;
+  display:flex;
+  margin:0 auto;
+  margin-top:1em;
+
+}
+
+.zoom-rating-cont p {
+  padding-right:5px;
 }
