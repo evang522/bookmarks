@@ -149,22 +149,28 @@ const display = function () {
     });
   };
 
-  // const listenForConfirmTitleEdit = () => {
-  //   $('.bookmark-container').on('submit','.zoom-bookmark-title-edit-form', (event) => {
-  //     event.preventDefault();
-  //     let newTitle = $('.zoom-bookmark-title-edit').val();
-  //     let itemId = $(event.target).closest('.static-view-item-container').attr('data-item-id');
-  //     let updateObj = {
-  //       name:newTitle
-  //     };
+  const listenForConfirmTitleEdit = () => {
+    $('.bookmark-container').on('submit','.zoom-bookmark-title-edit-form', (event) => {
+      event.preventDefault();
+      let newTitle = $('.zoom-bookmark-title-edit').val();
+      let itemId = $(event.target).closest('.static-view-item-container').attr('data-item-id');
+      let updateObj = {
+        title:newTitle
+      };
       
-  //     // send to server
-  //     api.updateItemOnServer(itemId,updateObj,() => {
+      // send to server
+      api.updateItemOnServer(itemId,updateObj,() => {
+        const localBookmarkToUpdate = localModel.bookmarks.find((bookmark)=> {
+          return bookmark.id === itemId;
+        });
+        localBookmarkToUpdate.title = newTitle;
+        localBookmarkToUpdate.isEditingTitle = false;
+        pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
 
-  //     });
+      });
 
-  //   });
-  // };
+    });
+  };
 
 
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
@@ -265,6 +271,7 @@ const display = function () {
     listenForSearch();
     listenForShowAll();
     listenForInitiateTitleEdit();
+    listenForConfirmTitleEdit();
   };
 
 

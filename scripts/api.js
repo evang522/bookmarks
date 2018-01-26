@@ -34,9 +34,14 @@ const api = function () {
   };
 
   const updateItemOnServer = (itemId,updateObj,callback) => {
-    const updateQueryObj = JSON.stringift(updateObj);
-
-    $.ajax({url:`${baseURL}/itemId`,method:'PATCH', type:'application/json', data:updateQueryObj,success:callback});
+    const updateQueryObj = JSON.stringify(updateObj);
+    console.log(updateQueryObj);
+    $.ajax({
+      url:`${baseURL}/${itemId}`,
+      method:'PATCH',
+      contentType:'application/json',
+      data:updateQueryObj,
+      success:callback});
   };
 
   return {
