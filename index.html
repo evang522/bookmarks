@@ -15,10 +15,10 @@
       <section role='region' class='add-bookmark-container'>
         <label for='add-bookmark-form'></label>
         <form class='add-bookmark-form' id='add-bookmark-form'>
-          <input class='add-bookmark-input add-bookmark-title' name='title' placeholder='Title'>
-          <input class='add-bookmark-input add-bookmark-description' name='desc'placeholder='description'>
-          <input class='add-bookmark-input add-bookmark-url' name='url'placeholder='url'>
-          <input type='number' class='add-bookmark-input add-bookmark-rating' name='rating' placeholder='rating'>
+          <label for='add-bookmark-title'>Title: </label><input id = 'add-bookmark-title' class='add-bookmark-input add-bookmark-title' name='title'>
+          <label for='add-bookmark-description'>Description: </label><input id = 'add-bookmark-description' class='add-bookmark-input add-bookmark-description' name='desc'>
+          <label for='add-bookmark-url'>URL:</label><input id = 'add-bookmark-url' class='add-bookmark-input add-bookmark-url' name='url'>
+          <label for='add-bookmark-rating'>Rating:</label><input id = 'add-bookmark-rating' type='number' class='add-bookmark-input add-bookmark-rating' name='rating'>
           <button class='add-bookmark-button'>Add Item</button>
         </form>
       </section>
@@ -31,8 +31,8 @@
           </form>
         </div>
           <div class='bookmark-rating-filter-container'>
-            <p class='bookmark-search-label'>Show bookmarks with a rating at or higher than:</p>
-            <select class='bookmark-rating-filter-select'>
+            <label for='bookmark-rating-filter' class='bookmark-search-label'>Show bookmarks with a rating at or higher than:</label>
+            <select id='bookmark-rating-filter' class='bookmark-rating-filter-select'>
               <option value='1'>1</option>
               <option value='2'>2</option>
               <option value='3'>3</option>
@@ -45,8 +45,8 @@
               <button class='reset-all-button'>Show All</button>
           </div>
       </section>
-        <div class='bookmark-container'>
-        </div>
+        <ul class='bookmark-container'>
+        </ul>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="scripts/api.js"></script>

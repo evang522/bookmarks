@@ -152,15 +152,20 @@ body {
   border-radius:10px;
   display:flex;
   justify-content:center;
+
 }
 
 .add-bookmark-container input {
   padding:6px;
   font-size:1.1em;
   border-radius:2px;
-  border:1px dotted black;;
+  border:1px dotted black;
 
 }
+/* 
+.add-bookmark-container input:after {
+  content:'<br>';
+} */
 
 .add-bookmark-button {
   width:8em;
@@ -288,6 +293,11 @@ body {
   width:18em;
 }
 
+.add-bookmark-input {
+  margin-left:.5em;
+  margin-right:.5em;
+}
+
 
 @media only screen and (max-width:400px) {
 
@@ -321,5 +331,6 @@ body {
 .wider-button {
   width:90% !important;
 }
+
 
 }
