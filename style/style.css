@@ -130,6 +130,13 @@ body {
 }
 
 
+.static-view-item-container input {
+  background-color:transparent;
+  border:none;
+  font-size:1.2em;
+  height:2em;
+}
+
 .bookmark-search-label {
   color:white;
 }
@@ -213,4 +220,16 @@ body {
   padding:4px;
   margin-left:1em;
   font-weight:bold;
+}
+
+.zoom-bookmark-title-edit-form {
+  display:flex;
+  justify-content:center;
+}
+
+.zoom-bookmark-title-edit {
+    font-size: 2em !important;
+    text-align:center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight:bold;   
 }

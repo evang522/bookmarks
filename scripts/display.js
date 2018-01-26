@@ -145,7 +145,7 @@ const display = function () {
       });
       itemEdited.isEditingTitle = true;
       pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
-      // $('.zoom-bookmark-title').replaceWith(`<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value ="${originalVal}"></form>`);
+      $('.zoom-bookmark-title-edit').focus();
     });
   };
 
@@ -171,6 +171,7 @@ const display = function () {
 
     // This function takes in the local array of bookmarks and generates an HTML string based on certain conditions.
 
+    // Declare empty string which html will be appended to.
     let domString = '';
 
 
@@ -222,7 +223,7 @@ const display = function () {
         return bookmark.id === id;
       });
       console.log(pvwBookmark);
-      let editingTitleHTML = '<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock"></form>';
+      let editingTitleHTML = `<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value = '${pvwBookmark.title}'></form>`;
       let notEditingTitleHTML = `<h2 class='zoom-bookmark-title center small-space-below'>${pvwBookmark.title}</h2>`;
       domString += `
       <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}'>
