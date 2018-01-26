@@ -261,7 +261,7 @@ const display = function () {
         domString += `
         <li class='bookmark' data-item-id='${item.id}'>
         <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${display.generateStars(item.rating)}</p>
+        <p class='center'>${display.generateStars(item.rating)}</p>
         </li>`;
       });
       console.log('ran rating filter');
@@ -276,7 +276,7 @@ const display = function () {
         domString += `
         <li class='bookmark' data-item-id='${item.id}'>
         <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${display.generateStars(item.rating)}</p>
+        <p class='center'>${display.generateStars(item.rating)}</p>
         </li>`;
       });
       // console.log('ran searchTerm Condition');
@@ -326,7 +326,7 @@ const display = function () {
       </form>
       <div class='static-button-div'>
         <button class='delete-bookmark-button'>Delete Item</button>
-        <button class='bookmark-preview-close'>Close Preview</button>
+        <button class='bookmark-preview-close'>Close</button>
 
       </div>
     </section>`;

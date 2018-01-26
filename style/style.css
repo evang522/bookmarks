@@ -150,6 +150,8 @@ body {
   width:80%;
   margin:0 auto;
   border-radius:10px;
+  display:flex;
+  justify-content:center;
 }
 
 .add-bookmark-container input {
@@ -169,6 +171,7 @@ body {
   border-radius:10px;
   font-size:1.1em;
   margin-right:10px;
+  margin-left:1em;
 }
 
 .static-button-div {
@@ -197,13 +200,22 @@ body {
 
 
 .search-filter-container {
-  display:flex;
   justify-content:center;
+  align-items:center;
   width:80%;
   margin:0 auto;
-  height:2em;
   margin-bottom:.5em;
   margin-top:.5em;
+  display:flex;
+  flex-direction:column;
+  min-height:10em;
+}
+
+.search-filter-container > * {
+  text-align:center;
+  justify-content:center;
+  align-items:center;
+  margin:1em;
 }
 
 
@@ -268,4 +280,46 @@ body {
 
 .zoom-rating-cont p {
   padding-right:5px;
+}
+
+
+.bookmark-search-input {
+  height:2.5em;
+  width:18em;
+}
+
+
+@media only screen and (max-width:400px) {
+
+
+.rating-filter-container {
+  width:10em;
+}
+
+
+.add-bookmark-form {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-content:center;
+}
+
+.add-bookmark-form > * {
+  margin:auto;
+}
+
+.add-bookmark-form > button {
+  margin-bottom:5px;
+  margin-top:1em;
+}
+
+.static-view-item-container {
+  width:80%;
+}
+
+
+.wider-button {
+  width:90% !important;
+}
+
 }
