@@ -112,6 +112,16 @@ const display = function () {
     });
   };
 
+  const listenForShowAll = () => {
+    $('.reset-all-button').on('click',(event)=>{
+      localModel.searchTerm = null;
+      localModel.filterRating = 0;
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
+      $('.bookmark-rating-filter-select').val(1);
+      $('.bookmark-search-input').val('');
+    });
+  };
+
   const initiateApp = () => {
     //event listeners
     api.fetchFromServer((data) => {
@@ -125,11 +135,53 @@ const display = function () {
     listenForDeleteBookmark();
     listenForFilterByRating();
     listenForSearch();
+    listenForShowAll();
   };
 
 
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
     let domString = '';
+
+
+    let filteredArr = localBookmarks;
+
+    if (localModel.filterRating > 0) {
+      filteredArr = localModel.filterItemsByRating(localModel.filterRating);
+      filteredArr.forEach((item) => {
+        domString += `
+        <li class='bookmark' data-item-id='${item.id}'>
+        <h3 class='bookmark-title center'>${item.title}</h3>
+        <p class='center'>Rating:${item.rating}</p>
+        </li>`;
+      });
+      console.log('ran rating filter');
+    } 
+
+    if (localModel.searchTerm) {
+      let searchfilteredArr = filteredArr.filter((bookmark)=> {
+        return bookmark.title.toLowerCase().includes(localModel.searchTerm.toLowerCase());
+      });
+      domString = '';
+      searchfilteredArr.forEach((item) => {
+        domString += `
+        <li class='bookmark' data-item-id='${item.id}'>
+        <h3 class='bookmark-title center'>${item.title}</h3>
+        <p class='center'>Rating:${item.rating}</p>
+        </li>`;
+      });
+      console.log('ran searchTerm Condition');
+    }
+    if (!localModel.searchTerm && localModel.filterRating === 0) {
+      localBookmarks.forEach((item) => {
+        domString += `
+      <li class='bookmark' data-item-id='${item.id}'>
+      <h3 class='bookmark-title center'>${item.title}</h3>
+      <p class='center'>Rating:${item.rating}</p>
+      </li>`;
+      });
+      console.log('ran conditionless');
+    }
+
     if (localModel.isPreviewing) {
       let pvwBookmark = localModel.bookmarks.find((bookmark) =>{
         return bookmark.id === id;
@@ -146,42 +198,6 @@ const display = function () {
     </section>`;
     }
 
-    let filteredArr = localBookmarks;
-
-    if (localModel.filterRating > 0) {
-      filteredArr = localModel.filterItemsByRating(localModel.filterRating);
-      filteredArr.forEach((item) => {
-        domString += `
-        <li class='bookmark' data-item-id='${item.id}'>
-        <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${item.rating}</p>
-        </li>`;
-      });
-      console.log(filteredArr);
-    } 
-
-    if (localModel.searchTerm) {
-      filteredArr = filteredArr.filter((bookmark)=> {
-        return bookmark.title.toLowerCase().includes(localModel.searchTerm.toLowerCase());
-      });
-      filteredArr.forEach((item) => {
-        domString += `
-        <li class='bookmark' data-item-id='${item.id}'>
-        <h3 class='bookmark-title center'>${item.title}</h3>
-        <p class='center'>Rating:${item.rating}</p>
-        </li>`;
-      });
-      console.log(filteredArr);
-    } 
-    else {
-      localBookmarks.forEach((item) => {
-        domString += `
-      <li class='bookmark' data-item-id='${item.id}'>
-      <h3 class='bookmark-title center'>${item.title}</h3>
-      <p class='center'>Rating:${item.rating}</p>
-      </li>`;
-      });
-    }
     return domString;
   };
 
