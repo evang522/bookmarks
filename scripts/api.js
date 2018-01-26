@@ -7,13 +7,8 @@ const api = function () {
   const baseURL = 'https://thinkful-list-api.herokuapp.com/evang522/bookmarks';
   
 
-  const createNewBookmarkOnServer = (title,desc,rating,url,callback) => {
-    const updateQueryObj = JSON.stringify({
-      title:title,
-      url:url,
-      desc:desc,
-      rating:rating,
-    });
+  const createNewBookmarkOnServer = (bookmark,callback) => {
+    const updateQueryObj = JSON.stringify(bookmark);
 
     console.log(updateQueryObj);
 
@@ -31,9 +26,17 @@ const api = function () {
     $.getJSON(baseURL,(callback));
   };
 
+  const deleteBookmarkFromServer = (itemId,callback) => {
+    $.ajax({
+      url:`${baseURL}/${itemId}`,
+      method:'DELETE',
+      success:callback});
+  };
+
   return {
     fetchFromServer,
-    createNewBookmarkOnServer
+    createNewBookmarkOnServer,
+    deleteBookmarkFromServer,
   };
 
 }();

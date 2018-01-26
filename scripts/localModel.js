@@ -28,16 +28,33 @@ const localModel = function () {
     });
   };
 
+  const deleteBookmarkFromLocalModel = function(itemId) {
+    this.bookmarks = this.bookmarks.filter((bookmark) => {
+      return bookmark.id !== itemId;
+    });
+  };
+
+  const filterItemsByRating = (rating) => {
+    let filteredBookmarkList = localModel.bookmarks.filter((bookmark) => {
+      return bookmark.rating >= parseInt(rating);
+    });
+    return filteredBookmarkList;
+  };
+
   const bookmarks = [];
 
+  const searchTerm = null;
+  
 
   return {
     bookmarks,
     addSingleBookmarkToModel,
     isPreviewing:false,
     filterRating:0,
-    pullAllBookmarksIntoModel
-    
+    pullAllBookmarksIntoModel,
+    deleteBookmarkFromLocalModel,
+    filterItemsByRating,
+    searchTerm
   };
 
 }();

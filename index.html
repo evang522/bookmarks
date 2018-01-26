@@ -14,13 +14,29 @@
       <section role='region' class='add-bookmark-container'>
         <form class='add-bookmark-form'>
           <button class='add-bookmark-button'>Add Item</button>
-          <input class='add-bookmark-input add-bookmark-title' placeholder='Title'>
-          <input class='add-bookmark-input add-bookmark-description' placeholder='description'>
-          <input class='add-bookmark-input add-bookmark-url' placeholder='url'>
-          <input type='number' class='add-bookmark-input add-bookmark-rating' placeholder='rating'>
+          <input class='add-bookmark-input add-bookmark-title' name='title' placeholder='Title'>
+          <input class='add-bookmark-input add-bookmark-description' name='desc'placeholder='description'>
+          <input class='add-bookmark-input add-bookmark-url' name='url'placeholder='url'>
+          <input type='number' class='add-bookmark-input add-bookmark-rating' name='rating' placeholder='rating'>
         </form>
       </section>
       <section role='region'>
+        <div class='rating-filter-container'>
+          <form class='bookmark-search-form'>
+            <label for='bookmark-search-input' class='bookmark-search-label'>Search for an Item:</label>
+            <input id = 'bookmark-search-input' class='bookmark-search-input'>
+          </form>
+          <div class='bookmark-rating-filter-container'>
+            <p class='bookmark-search-label'>Filter bookmarks by rating</p>
+            <select class='bookmark-rating-filter-select'>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+            </select>
+          </div>
+        </div>
         <div class='bookmark-container'>
         </div>
       </section>

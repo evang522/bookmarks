@@ -106,4 +106,10 @@ body {
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 5px 5px 5px #555656;
+  padding:1em;
+}
+
+
+.bookmark-search-label {
+  color:white;
 }
