@@ -21,7 +21,7 @@ const display = function () {
             bookmark[key]= value;        
           });
       } catch(e) {
-        console.log(e.message);
+        alert(e.message);
         return;
       }
 
@@ -45,21 +45,33 @@ const display = function () {
       type: 'string',
       minLength: 1,
       maxLength: 100,
-      value: '' },
+      value: '' 
+    },
     url :
-      {type: 'url',
-        minLength: 1,
-        maxLength: 100,
-        value: '' }
+    {
+      type: 'url',
+      minLength: 1,
+      maxLength: 100,
+      value: '' 
+    },
+    desc : 
+    {
+      type:'desc',
+      minLength:3,
+      maxLength:200,
+    }
   };
 
   const validate = (key,value) => {
     if (schema[key] == undefined) return true;
-    if (value.length < schema[key].minLength) throw new Error(`invalid Minimum Length: ${key}`);
-    if (value.length >= schema[key].maxLength) throw new Error(`invalid Max length: ${key}`);
-    // if (schema[key].type === 'url')  {
-    //   return value.indexOf('http') !== 0;
-    // }
+    if (value.length < schema[key].minLength) throw new Error(`Your ${key} is invalid!`);
+    if (value.length >= schema[key].maxLength) throw new Error(`Your ${key} is invalid!`);
+    if (schema[key].type === 'url')  {
+      console.log(value);
+      if (value.indexOf('http') !== 0) {
+        throw new Error(`Your ${key} is invalid!`);
+      }
+    }
 
     return true;
   };
@@ -125,9 +137,15 @@ const display = function () {
 
   const listenForInitiateTitleEdit = () => {
     $('.bookmark-container').on('click','.zoom-bookmark-title', (event) => {
-      let originalVal = $('.zoom-bookmark-title').text();
-      console.log(originalVal);
-      $('.zoom-bookmark-title').replaceWith(`<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value ="${originalVal}"></form>`);
+      // let originalVal = $('.zoom-bookmark-title').text();
+      // console.log(originalVal);
+      let itemId = $(event.target).closest('section').attr('data-item-id');
+      let itemEdited = localModel.bookmarks.find((bookmark) => {
+        return bookmark.id === itemId;
+      });
+      itemEdited.isEditingTitle = true;
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
+      // $('.zoom-bookmark-title').replaceWith(`<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value ="${originalVal}"></form>`);
     });
   };
 
@@ -152,7 +170,7 @@ const display = function () {
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
 
     // This function takes in the local array of bookmarks and generates an HTML string based on certain conditions.
-    
+
     let domString = '';
 
 
@@ -184,6 +202,8 @@ const display = function () {
       });
       console.log('ran searchTerm Condition');
     }
+
+
     if (!localModel.searchTerm && localModel.filterRating === 0) {
       localBookmarks.forEach((item) => {
         domString += `
@@ -195,13 +215,18 @@ const display = function () {
       console.log('ran conditionless');
     }
 
+
+
     if (localModel.isPreviewing) {
       let pvwBookmark = localModel.bookmarks.find((bookmark) =>{
         return bookmark.id === id;
       });
+      console.log(pvwBookmark);
+      let editingTitleHTML = '<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock"></form>';
+      let notEditingTitleHTML = `<h2 class='zoom-bookmark-title center small-space-below'>${pvwBookmark.title}</h2>`;
       domString += `
       <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}'>
-      <h2 class='zoom-bookmark-title center small-space-below'>${pvwBookmark.title}</h2>
+      ${pvwBookmark.isEditingTitle ? editingTitleHTML : notEditingTitleHTML}
       <p class='zoom-bookmark-description center'>${pvwBookmark.desc}</p>
       <p class='zoom-bookmark-rating center'>Rating:${pvwBookmark.rating}</p>
       <p class='zoom-bookmark-url small-space-above center small-space-below'>URL: ${pvwBookmark.url}</p>

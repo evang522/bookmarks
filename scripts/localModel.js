@@ -10,7 +10,8 @@ const localModel = function () {
       url:bookmark.url,
       desc:bookmark.desc,
       rating:bookmark.rating,
-      isPreviewing:false
+      isPreviewing:false,
+      isEditingTitle:false
     });   
   };
 
@@ -23,7 +24,8 @@ const localModel = function () {
         url:item.url,
         desc:item.desc,
         rating:item.rating,
-        isPreviewing:false
+        isPreviewing:false,
+        isEditingTitle:false
       });
     });
   };
