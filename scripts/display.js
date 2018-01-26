@@ -6,6 +6,49 @@
 /* display*/
 const display = function () {
 
+
+
+  // FORM VALIDATION-------------------------------------------------------------------------------->
+  const schema = { 
+    title : 
+    {
+      type: 'string',
+      minLength: 1,
+      maxLength: 100,
+      value: '' 
+    },
+    url :
+    {
+      type: 'url',
+      minLength: 1,
+      maxLength: 100,
+      value: '' 
+    },
+    desc : 
+    {
+      type:'desc',
+      minLength:3,
+      maxLength:200,
+    }
+  };
+
+  const validate = (key,value) => {
+    if (schema[key] == undefined) return true;
+    if (value.length < schema[key].minLength) throw new Error(`Your ${key} is invalid!`);
+    if (value.length >= schema[key].maxLength) throw new Error(`Your ${key} is invalid!`);
+    if (schema[key].type === 'url')  {
+      // console.log(value);
+      if (value.indexOf('http') !== 0) {
+        throw new Error(`Your ${key} is invalid!`);
+      }
+    }
+
+    return true;
+  };
+
+
+  // Event Listeners-------------------------------------------------------------------------------->
+
   const listenForNewBookmarkSubmit = () => {
     $('.add-bookmark-form').on('submit', (event) => {
       event.preventDefault();
@@ -36,44 +79,6 @@ const display = function () {
 
     });
 
-  };
-
-
-  const schema = { 
-    title : 
-    {
-      type: 'string',
-      minLength: 1,
-      maxLength: 100,
-      value: '' 
-    },
-    url :
-    {
-      type: 'url',
-      minLength: 1,
-      maxLength: 100,
-      value: '' 
-    },
-    desc : 
-    {
-      type:'desc',
-      minLength:3,
-      maxLength:200,
-    }
-  };
-
-  const validate = (key,value) => {
-    if (schema[key] == undefined) return true;
-    if (value.length < schema[key].minLength) throw new Error(`Your ${key} is invalid!`);
-    if (value.length >= schema[key].maxLength) throw new Error(`Your ${key} is invalid!`);
-    if (schema[key].type === 'url')  {
-      console.log(value);
-      if (value.indexOf('http') !== 0) {
-        throw new Error(`Your ${key} is invalid!`);
-      }
-    }
-
-    return true;
   };
 
 
@@ -137,8 +142,6 @@ const display = function () {
 
   const listenForInitiateTitleEdit = () => {
     $('.bookmark-container').on('click','.zoom-bookmark-title', (event) => {
-      // let originalVal = $('.zoom-bookmark-title').text();
-      // console.log(originalVal);
       let itemId = $(event.target).closest('section').attr('data-item-id');
       let itemEdited = localModel.bookmarks.find((bookmark) => {
         return bookmark.id === itemId;
@@ -149,8 +152,10 @@ const display = function () {
     });
   };
 
+
   const listenForConfirmTitleEdit = () => {
     $('.bookmark-container').on('submit','.zoom-bookmark-title-edit-form', (event) => {
+      console.log('title edit confirmed');
       event.preventDefault();
       let newTitle = $('.zoom-bookmark-title-edit').val();
       let itemId = $(event.target).closest('.static-view-item-container').attr('data-item-id');
@@ -160,6 +165,7 @@ const display = function () {
       
       // send to server
       api.updateItemOnServer(itemId,updateObj,() => {
+        console.log('title update sent to server');
         const localBookmarkToUpdate = localModel.bookmarks.find((bookmark)=> {
           return bookmark.id === itemId;
         });
@@ -172,6 +178,46 @@ const display = function () {
     });
   };
 
+
+  const listenForInitiateDescEdit = () => {
+    $('.bookmark-container').on('click','.zoom-bookmark-description', (event) => {
+      let itemId = $(event.target).closest('section').attr('data-item-id');
+      let itemEdited = localModel.bookmarks.find((bookmark) => {
+        return bookmark.id === itemId;
+      });
+      itemEdited.isEditingDesc = true;
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
+      $('.zoom-bookmark-description').focus();
+    });
+  };
+
+
+  const listenForConfirmDescEdit = () => {
+    $('.bookmark-container').on('keydown', '.zoom-bookmark-description-edit', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        let newDescription = $('.zoom-bookmark-description-edit').val();
+        let itemId = $(event.target).closest('.static-view-item-container').attr('data-item-id');
+        let updateObj = {
+          desc:newDescription
+        };
+      
+        // send to server
+        api.updateItemOnServer(itemId,updateObj,() => {
+          const localBookmarkToUpdate = localModel.bookmarks.find((bookmark)=> {
+            return bookmark.id === itemId;
+          });
+          localBookmarkToUpdate.desc = newDescription;
+          localBookmarkToUpdate.isEditingDesc = false;
+          pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks,itemId));
+
+        });
+      }
+    });
+  };
+
+
+  // DOM MANIPULATION-------------------------------------------------------------------------------->
 
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
 
@@ -207,7 +253,7 @@ const display = function () {
         <p class='center'>Rating:${item.rating}</p>
         </li>`;
       });
-      console.log('ran searchTerm Condition');
+      // console.log('ran searchTerm Condition');
     }
 
 
@@ -219,7 +265,7 @@ const display = function () {
       <p class='center'>Rating:${item.rating}</p>
       </li>`;
       });
-      console.log('ran conditionless');
+      // console.log('ran conditionless');
     }
 
 
@@ -228,13 +274,15 @@ const display = function () {
       let pvwBookmark = localModel.bookmarks.find((bookmark) =>{
         return bookmark.id === id;
       });
-      console.log(pvwBookmark);
+      // console.log(pvwBookmark);
       let editingTitleHTML = `<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value = '${pvwBookmark.title}'></form>`;
       let notEditingTitleHTML = `<h2 class='zoom-bookmark-title center small-space-below'>${pvwBookmark.title}</h2>`;
+      let editingDescHTML = `<textarea class='zoom-bookmark-description-edit centerBlock'>${pvwBookmark.desc}</textarea>`;
+      let notEditingDescHTML = `<p class='zoom-bookmark-description center'>${pvwBookmark.desc}</p>`;
       domString += `
       <section role='region' class='static-view-item-container' data-item-id = '${pvwBookmark.id}'>
       ${pvwBookmark.isEditingTitle ? editingTitleHTML : notEditingTitleHTML}
-      <p class='zoom-bookmark-description center'>${pvwBookmark.desc}</p>
+      ${pvwBookmark.isEditingDesc ? editingDescHTML : notEditingDescHTML}
       <p class='zoom-bookmark-rating center'>Rating:${pvwBookmark.rating}</p>
       <p class='zoom-bookmark-url small-space-above center small-space-below'>URL: ${pvwBookmark.url}</p>
       <form action='${pvwBookmark.url}' target='_blank'>
@@ -256,6 +304,7 @@ const display = function () {
   };
 
 
+  // Start App on Load-------------------------------------------------------------------------------->
   const initiateApp = () => {
     //event listeners
     api.fetchFromServer((data) => {
@@ -272,6 +321,8 @@ const display = function () {
     listenForShowAll();
     listenForInitiateTitleEdit();
     listenForConfirmTitleEdit();
+    listenForConfirmDescEdit();
+    listenForInitiateDescEdit();
   };
 
 

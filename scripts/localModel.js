@@ -11,7 +11,8 @@ const localModel = function () {
       desc:bookmark.desc,
       rating:bookmark.rating,
       isPreviewing:false,
-      isEditingTitle:false
+      isEditingTitle:false,
+      isEditingDesc:false
     });   
   };
 
@@ -25,7 +26,8 @@ const localModel = function () {
         desc:item.desc,
         rating:item.rating,
         isPreviewing:false,
-        isEditingTitle:false
+        isEditingTitle:false,
+        isEditingDesc:false
       });
     });
   };

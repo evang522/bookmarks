@@ -10,7 +10,7 @@
 /* BODY STYLES */
 
 body {
-  background-color:black;
+  background-color:#f1f1f1;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -58,14 +58,15 @@ body {
 
 .banner-title {
   font-size:3em;
-  color:#2c9904;
+  color:#426fb7;
 }
 
 /* BOOKMARK STYLING */
 
 .bookmark-container {
   width:80%;
-  background-color:#2c323d;
+  background-color:white;
+  border:1px dotted black;
   height:29em;
   margin:0 auto;
   border-radius:10px;
@@ -83,9 +84,9 @@ body {
 .bookmark {
   margin:1em;
   list-style:none;
-  width:19%;
+  width:12em;
   height:4em;
-  background-color:#2c9904;
+  background-color:#426fb7;
   border-radius:10px;
   color:white;
   cursor:pointer;
@@ -101,9 +102,10 @@ body {
 
 .static-view-item-container {
   position:fixed;
-  background-color:#404753;
-  height:60%;
-  width:30%;
+  background-color:white;
+  border:1px dotted black;
+  height:30em;
+  width:31em;
   border-radius:10px;
   left: 50%;
   transform: translateX(-50%);
@@ -138,11 +140,12 @@ body {
 }
 
 .bookmark-search-label {
-  color:white;
+  /* color:white; */
 }
 
 .add-bookmark-container {
-  background-color:#2c9904;
+  background-color:white;
+  border:1px dotted black;
   padding:1em;
   width:80%;
   margin:0 auto;
@@ -153,7 +156,8 @@ body {
   padding:6px;
   font-size:1.1em;
   border-radius:2px;
-  border:none;
+  border:1px dotted black;;
+
 }
 
 .add-bookmark-button {
@@ -180,12 +184,15 @@ body {
 
 .wider-button {
   width:22em !important;
-  background-color:#2c9904 !important;
+  background-color:#ccb33d !important;
+  border:1px dotted black !important;
+  color:black !important;
   cursor:pointer;
 }
 
 .zoom-bookmark-title {
   font-size:2em !important;
+  color:#426fb7;
 }
 
 
@@ -214,7 +221,8 @@ body {
 .reset-all-button {
   width:7em;
   border:none;
-  background-color:#af9801;
+  background-color:black;
+  color:white;
   font-size:1.1em;
   border-radius:4px;
   padding:4px;
@@ -232,4 +240,12 @@ body {
     text-align:center;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight:bold;   
+}
+
+
+.zoom-bookmark-description-edit {
+  width:80%;
+  min-height:4em;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size:1.1em;
 }
