@@ -89,6 +89,7 @@ body {
   border-radius:10px;
   color:white;
   cursor:pointer;
+  box-shadow: 3px 3px 3px black;
 }
 
 
@@ -187,6 +188,8 @@ body {
   width:80%;
   margin:0 auto;
   height:2em;
+  margin-bottom:.5em;
+  margin-top:.5em;
 }
 
 
@@ -199,4 +202,15 @@ body {
 
 .bookmark-rating-filter-container {
   display:flex;
+}
+
+.reset-all-button {
+  width:7em;
+  border:none;
+  background-color:#af9801;
+  font-size:1.1em;
+  border-radius:4px;
+  padding:4px;
+  margin-left:1em;
+  font-weight:bold;
 }

@@ -122,24 +122,37 @@ const display = function () {
     });
   };
 
-  const initiateApp = () => {
-    //event listeners
-    api.fetchFromServer((data) => {
-      localModel.pullAllBookmarksIntoModel(data);
-      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
-    });
 
-    listenForClosePreview();
-    listenForPreviewBookmark();
-    listenForNewBookmarkSubmit();
-    listenForDeleteBookmark();
-    listenForFilterByRating();
-    listenForSearch();
-    listenForShowAll();
+  const listenForInitiateTitleEdit = () => {
+    $('.bookmark-container').on('click','.zoom-bookmark-title', (event) => {
+      let originalVal = $('.zoom-bookmark-title').text();
+      console.log(originalVal);
+      $('.zoom-bookmark-title').replaceWith(`<form class="zoom-bookmark-title-edit-form"><input class="zoom-bookmark-title-edit centerBlock" value ="${originalVal}"></form>`);
+    });
   };
+
+  // const listenForConfirmTitleEdit = () => {
+  //   $('.bookmark-container').on('submit','.zoom-bookmark-title-edit-form', (event) => {
+  //     event.preventDefault();
+  //     let newTitle = $('.zoom-bookmark-title-edit').val();
+  //     let itemId = $(event.target).closest('.static-view-item-container').attr('data-item-id');
+  //     let updateObj = {
+  //       name:newTitle
+  //     };
+      
+  //     // send to server
+  //     api.updateItemOnServer(itemId,updateObj,() => {
+
+  //     });
+
+  //   });
+  // };
 
 
   const generateHTMLStringFromLocalBookmarks = (localBookmarks,id) => {
+
+    // This function takes in the local array of bookmarks and generates an HTML string based on certain conditions.
+    
     let domString = '';
 
 
@@ -159,7 +172,7 @@ const display = function () {
 
     if (localModel.searchTerm) {
       let searchfilteredArr = filteredArr.filter((bookmark)=> {
-        return bookmark.title.toLowerCase().includes(localModel.searchTerm.toLowerCase());
+        return (bookmark.title.toLowerCase().includes(localModel.searchTerm.toLowerCase()) || bookmark.desc.toLowerCase().includes(localModel.searchTerm.toLowerCase()));
       });
       domString = '';
       searchfilteredArr.forEach((item) => {
@@ -198,6 +211,7 @@ const display = function () {
       <div class='static-button-div'>
         <button class='delete-bookmark-button'>Delete Item</button>
         <button class='bookmark-preview-close'>Close Preview</button>
+
       </div>
     </section>`;
     }
@@ -207,6 +221,24 @@ const display = function () {
 
   const pushToDom = (domString) => {
     $('.bookmark-container').html(domString);
+  };
+
+
+  const initiateApp = () => {
+    //event listeners
+    api.fetchFromServer((data) => {
+      localModel.pullAllBookmarksIntoModel(data);
+      pushToDom(generateHTMLStringFromLocalBookmarks(localModel.bookmarks));
+    });
+
+    listenForClosePreview();
+    listenForPreviewBookmark();
+    listenForNewBookmarkSubmit();
+    listenForDeleteBookmark();
+    listenForFilterByRating();
+    listenForSearch();
+    listenForShowAll();
+    listenForInitiateTitleEdit();
   };
 
 

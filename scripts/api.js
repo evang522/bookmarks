@@ -33,10 +33,17 @@ const api = function () {
       success:callback});
   };
 
+  const updateItemOnServer = (itemId,updateObj,callback) => {
+    const updateQueryObj = JSON.stringift(updateObj);
+
+    $.ajax({url:`${baseURL}/itemId`,method:'PATCH', type:'application/json', data:updateQueryObj,success:callback});
+  };
+
   return {
     fetchFromServer,
     createNewBookmarkOnServer,
     deleteBookmarkFromServer,
+    updateItemOnServer
   };
 
 }();
