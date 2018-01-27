@@ -29,6 +29,10 @@ const display = function () {
       type:'desc',
       minLength:3,
       maxLength:200,
+    },
+    rating:
+    {
+      type:'rating',
     }
   };
 
@@ -41,6 +45,10 @@ const display = function () {
       if (value.indexOf('http') !== 0) {
         throw new Error(`Your ${key} is invalid!`);
       }
+    }
+    if (schema[key].type === 'rating' && value > 5) {
+      console.log(schema[key].type);
+      throw new Error('Ratings may only be 5 stars or below');
     }
 
     return true;
