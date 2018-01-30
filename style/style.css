@@ -152,7 +152,6 @@ body {
   border-radius:10px;
   display:flex;
   justify-content:center;
-
 }
 
 .add-bookmark-container input {
@@ -299,14 +298,6 @@ body {
 }
 
 
-@media only screen and (max-width:400px) {
-
-
-.rating-filter-container {
-  width:10em;
-}
-
-
 .add-bookmark-form {
   display:flex;
   flex-direction:column;
@@ -322,6 +313,16 @@ body {
   margin-bottom:5px;
   margin-top:1em;
 }
+
+@media only screen and (max-width:400px) {
+
+
+.rating-filter-container {
+  width:10em;
+}
+
+
+
 
 .static-view-item-container {
   width:80%;
