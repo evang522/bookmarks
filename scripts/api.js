@@ -8,15 +8,15 @@ const api = function () {
   
 
   const createNewBookmarkOnServer = (bookmark,callback) => {
-    const updateQueryObj = JSON.stringify(bookmark);
+    const QueryObj = JSON.stringify(bookmark);
 
-    console.log(updateQueryObj);
+    console.log(QueryObj);
 
     $.ajax({
       url:baseURL,
       contentType:'application/json',
       method:'POST',
-      data:updateQueryObj,
+      data:QueryObj,
       success:callback
     });
   };
